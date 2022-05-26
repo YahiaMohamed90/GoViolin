@@ -11,3 +11,6 @@ Contains:
 * Harmonic and Melodic Minor scales
 * Arpeggios
 * A set of two part scale duet melodies by Franz Wohlfahrt
+
+
+i have an problem when im running a jenkins as a container using docker-client 
