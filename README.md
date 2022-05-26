@@ -14,3 +14,5 @@ Contains:
 
 
 i have an problem when im running a jenkins as a container using docker-client 
+but im working on solve it 
+
