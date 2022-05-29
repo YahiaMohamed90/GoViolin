@@ -1,0 +1,54 @@
+name: Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  
+  repository_dispatch:
+   types:
+     -webhook
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: docker build -f Dockerfile . -t yahia90/go_app:v1.02
+        
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOKER_USERNAME }}
+          password: ${{ secrets.DOKER_PASSWORD }}
+      - name: push
+        run:  |
+          docker push yahia90/go_app:v1.02
+          
+      - name: Cheackout the code
+        uses: actions/checkout@v2
+        
+      - name: pass multiple environment
+        uses: actions/checkout@v2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: /
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TAEGET: ${{ secrets.TARGET_DIR }}
+      - name: pull image 
+        run: |
+         docker pull yahia90/gthub_action:v1.10
+      - name: deploy on server
+        run: |
+         docker run -d -p 3060:6060 yahia90/go_app:v1.02
+      - name: docker ps
+        run: |
+         sudo docker ps
+          
