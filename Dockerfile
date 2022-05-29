@@ -10,7 +10,7 @@ COPY . /web_go
 
 
 # Install the package
-RUN go install -v ./...
+RUN go install -v ./
 
 # This container exposes port 8080 to the outside world
 EXPOSE 6060
