@@ -9,7 +9,7 @@ WORKDIR /web_go
 COPY . /web_go
 
 # Download all the dependencies
-RUN go get -d -v ./...
+RUN go get -d -v 
 RUN go mod init github.com/Rosalita/GoViolin
 RUN go mod tidy
 RUN go mod vendor
